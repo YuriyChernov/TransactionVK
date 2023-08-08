@@ -9,7 +9,7 @@ const val ERROR_LIMIT = -2.0
 
 fun main() {
 
-    println(commission(typeCard = TYPE_MASTERCARD, money = 100_000, previous = 300_000))
+    println(commission(typeCard = TYPE_MASTERCARD, money = 100_000, previous = 0))
 }
 
 fun commission(typeCard: String = "VK Pay", money: Int, previous: Int): Any {
