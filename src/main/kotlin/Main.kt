@@ -8,26 +8,22 @@ const val ERROR_LIMIT = -2.0
 
 
 fun main() {
-    println(commission(typeCard = TYPE_VISA, 100_000, 0))
+    val typeCard = "Visa"
+    val money = 10_000
+    val previous = 117_500
+
+    println(commission(typeCard, money, previous))
 }
 
-fun commission(typeCard: String, money: Int, previous: Int): Any {
+fun commission(typeCard: String = "тип", money: Int = 0, previous: Int = 0): Any {
     return when (typeCard) {
-        TYPE_MASTERCARD -> if (money > 150_000 || money + previous > 600_000) {
+        TYPE_MASTERCARD, TYPE_MAESTRO -> if (money > 150_000 || money + previous > 600_000) {
             ERROR_LIMIT
-        } else if (money in 300..75_000) 0.00 else (money * 0.006) + 20
+        } else if (money in 300..75_000) 0.00 + previous else ((money * 0.006) + 20) + previous
 
-        TYPE_MAESTRO -> if (money > 150_000 || money + previous > 600_000) {
+        TYPE_VISA, TYPE_MIR -> if (money > 150_000 || money + previous > 600_000) {
             ERROR_LIMIT
-        } else if (money in 300..75_000) 0.00 else (money * 0.006) + 20
-
-        TYPE_VISA -> if (money > 150_000 || money + previous > 600_000) {
-            ERROR_LIMIT
-        } else if ((money * 0.075) < 35) (money + 35) else money + (money * 0.075)
-
-        TYPE_MIR -> if (money > 150_000 || money + previous > 600_000) {
-            ERROR_LIMIT
-        } else if ((money * 0.075) < 35) (money + 35) else money + (money * 0.075)
+        } else if ((money * 0.075) < 35) (money + 35) + previous else (money + (money * 0.075)) + previous
 
         TYPE_VK_PAY -> if (money > 15_000 || money + previous > 40_000) {
             ERROR_LIMIT
